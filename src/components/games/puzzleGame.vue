@@ -2,18 +2,9 @@
   <div id="divTable">
     <table class="gameTable" id="theTable">
       <tbody>
-      <tr class="gameTable">
-        <td id="10" class="cell-move-in-animation gameTable cellGradient" >
-          <img src="http://localhost:8080/1a.png" width="40px" height="40px" alt="logo">
-        </td>
-        <td id="41" class="cell-move-in-animation gameTable cellGradient">
-          <img src="http://localhost:8080/1a.png" width="40px" height="40px" alt="logo">
-        </td>
-        <td id="52" class="cell-move-in-animation gameTable cellGradient">
-          <img src="http://localhost:8080/1a.png" width="40px" height="40px" alt="logo">
-        </td>
-        <td id="53" class="cell-move-in-animation gameTable cellGradient">
-          <img src="http://localhost:8080/1a.png" width="40px" height="40px" alt="logo">
+      <tr class="gameTable" v-for="i in row" :key="i">
+        <td id="10" class="cell-move-in-animation gameTable cellGradient" v-for="j in col" :key="j">
+          <img src="http://localhost:8080/design81.png" width="95x" height="80px" alt="logo">
         </td>
       </tr>
       </tbody>
@@ -26,6 +17,8 @@
 export default {
   name: 'Puzzle',
   data: () => ({
+    row: 6,
+    col: 6
   }),
 }
 </script>

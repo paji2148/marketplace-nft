@@ -1,31 +1,34 @@
 <template>
   <div id="app">
-    <Game/>
+    <Base/>
   </div>
 </template>
 
 <script>
 
-import Game from './components/game.vue'
+import Base from './components/base.vue'
 
 export default {
   name: 'App',
   components: {
-    Game
+    Base
   }
 }
 </script>
 
-<style>
+<style scoped>
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap");
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: yellowgreen;
   position: absolute;
   top:0;
   right: 0;
   bottom: 0;
   left: 0;
+}
+
+body {
+  background: #e9e9e9;
+  font-family: "Montserrat", sans-serif;
 }
 </style>
