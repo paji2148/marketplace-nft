@@ -8,12 +8,10 @@
 <script>
 
 import Header from './header';
-import Footer from './footer';
+import Footer from './footer1';
 export default {
   name: 'Base',
   data: () => ({
-    mathGameSelector: false,
-    puzzleGameSelector: true,
   }),
   components: {
     Header,
@@ -23,4 +21,7 @@ export default {
 </script>
 
 <style>
+
+body{
+}
 </style>
