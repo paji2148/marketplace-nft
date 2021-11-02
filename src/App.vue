@@ -27,8 +27,9 @@ export default {
   left: 0;
 }
 
-body {
+* {
   background: #e9e9e9;
   font-family: "Montserrat", sans-serif;
 }
+
 </style>

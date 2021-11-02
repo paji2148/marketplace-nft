@@ -1,12 +1,10 @@
 <template>
   <div class="header">
       <a href="#default" class="logo">CRG</a>
-      <a href="#home">Home</a>
-      <a href="#contact">About</a>
-      <a href="#about">Roadmap</a>
+      <a href="home">Home</a>
+      <a href="roadmap">Roadmap</a>
     <div class="header-right">
-      <a href="#about">Connect Wallet</a>
-<!--      <a href="#about">Wallet</a>-->
+      <a href="my-wallet">My Wallet</a>
     </div>
   </div>
 </template>

@@ -1,15 +1,9 @@
 <template>
-  <div id="divTable">
-    <table class="gameTable" id="theTable">
-      <tbody>
-      <tr class="gameTable" v-for="i in row" :key="i">
-        <td id="10" class="cell-move-in-animation gameTable cellGradient" v-for="j in col" :key="j">
-          <img src="http://localhost:8080/design81.png" width="95x" height="80px" alt="logo">
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+    <div id="container">
+        <div id="10" class="cellGradient" v-for="j in pieces" :key="j">
+          <img src="http://localhost:8080/design81.png" width="170px" height="170px" alt="logo">
+        </div>
+    </div>
 </template>
 
 <script>
@@ -17,9 +11,13 @@
 export default {
   name: 'Puzzle',
   data: () => ({
-    row: 6,
-    col: 6
+    pieces: 12,
   }),
+  watch: {
+    // window.innerHeight
+  },
+  methods: {
+  }
 }
 </script>
 
@@ -27,9 +25,34 @@ export default {
 img:hover {
   opacity: 0.5;
 }
-
-table.gameTable{font-weight:bold;margin-left:auto;margin-right:auto;background-color:transparent;}
-.cellGradient{color:white;cursor:default;background:#939393;background:-moz-linear-gradient(top,  #939393 0%, #777777 100%);background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#939393), color-stop(100%,#777777));background:-webkit-linear-gradient(top,  #939393 0%,#777777 100%);background:-o-linear-gradient(top,  #939393 0%,#777777 100%);background:-ms-linear-gradient(top,  #939393 0%,#777777 100%);background:linear-gradient(to bottom,  #939393 0%,#777777 100%);}
-td.gameTable{text-align:center;width:33px;height:48px;background-clip:padding-box;border-radius:5px;}
-tr.gameTable{background-color:transparent;}
+#container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1%;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+.cellGradient{
+  background: black;
+  cursor:default;
+}
+@media (max-width:768px) {
+  #container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 1%;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+  .cellGradient{
+    background: black;
+    cursor:default;
+  }
+  img{
+    width:100px;
+    height:100px
+  }
+}
 </style>
