@@ -64,19 +64,19 @@ export default {
   content: "";
 }
 
+.footer-row a {
+  color: black;
+}
+
 @media (max-width: 600px) {
   .footer-basic-centered {
     padding: 35px;
   }
 
 
-  .footer-links a {
-    display: inline-block;
+  .footer-row a {
+    display: block;
     text-decoration: none;
-    color: inherit;
-  }
-  .footer-basic-centered .footer-links a {
-    line-height: 1.8;
   }
 }
 
