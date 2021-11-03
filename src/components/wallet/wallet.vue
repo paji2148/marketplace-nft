@@ -9,12 +9,12 @@
         <div class="filter__summary d-flex flex-column" style="justify-content: space-around">
           <div class="d-flex justify-content-between">
             InGame: 1 $CRG <a style="font-size: 21px; float:left; text-decoration:none;" title="Transfer to BSC" href="#" class="js-claim-tokens" >
-            <span style="color: rgb(230 0 0); margin-left: 20px;">--&gt;</span>
+            <span style="color: rgb(230 0 0); margin-left: 6px;">--&gt;</span>
           </a>
           </div>
-          <div class="d-flex justify-content-between js-reload-my-tokens">
-            <a style="font-size: 21px;display: none; float:right;text-decoration:none;" href="#" class="js-stake-tokens avxt-balance">
-              <span style="color: green; margin-right: 20px;">&lt;--</span>
+          <div class="d-flex justify-content-between">
+            <a style="font-size: 21px; float:left; text-decoration:none;" title="Transfer to BSC" href="#" class="js-claim-tokens" >
+              <span style="color: rgb(230 0 0); margin-left: 6px;">--></span>
             </a> OnBSC:&nbsp;<span id="on-chain-balance"></span>1 &nbsp;$CRG
           </div>
         </div>
@@ -106,5 +106,18 @@ button {
 
 button:hover {opacity: 0.5}
 
+@media (max-width: 560px) {
+  .wallet_container{
+    height: 250px;
+    width: 200px;
+  }
+  .filter__category{display:block;font-family:Roboto Condensed,sans-serif;font-style:normal;font-weight:400;font-size:11px;line-height:14px;
+    color:#fff;margin-bottom:3px;}
+  .filter__category:hover{color:#139ed2;text-decoration:none;}
+  /*.filter__summary{display:flex;justify-content:space-between;align-items:center;}*/
+  .filter__summary-line{position:relative;margin-top:1px;margin-bottom:2px;display:inline-block;width:100%;}
+  .filter__summary-line:before{content:" ";width:100%;height:1px;position:absolute;background:#42b983;}
+  .filter__summary-line:after{content:" ";height:3px;width:18px;position:absolute;background:red;left:50%;margin-left:-7px;top:-1px;}
+}
 
 </style>
