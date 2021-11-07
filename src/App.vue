@@ -6,12 +6,12 @@
 
 <script>
 
-import Base from './components/base.vue'
+import Base from './components/base.vue';
 
 export default {
   name: 'App',
   components: {
-    Base
+    Base,
   }
 }
 </script>

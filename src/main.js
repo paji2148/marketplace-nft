@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+
 import App from './App.vue';
 import Home from './components/home';
 import Wallet from './components/wallet/wallet';
@@ -8,15 +9,14 @@ import Squid from "@/components/games/squidgame";
 import MathQuiz from './components/games/mathGame';
 import store from './store/store';
 
-
 Vue.use(VueRouter)
 
 const routes = [
-  {path: '/', name:"wallet", component: Home},
+  {path: '/', name:"home", component: Home},
   {path: '/squid', name:"Squid", component: Squid},
-  {path: '/puzzle', name:"game", component: Puzzle},
-  {path: '/math', name:"game", component: MathQuiz},
-  {path: '/my-wallet', name:"game", component: Wallet},
+  {path: '/puzzle', name:"puzzlegame", component: Puzzle},
+  {path: '/math', name:"gmathame", component: MathQuiz},
+  {path: '/my-wallet', name:"wallet", component: Wallet},
 ];
 
 const router = new VueRouter({
@@ -24,6 +24,8 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 });
+
+Vue.config.productionTip = false;
 
 new Vue({
   router,
