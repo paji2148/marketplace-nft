@@ -5,22 +5,36 @@
         </div>
     </div>
 </template>
-
 <script>
+
+import { io } from 'socket.io-client';
+
+const socket = io('http://localhost:3000');
 
 export default {
   name: 'Puzzle',
+  components: {
+  },
   data: () => ({
     pieces: 12,
   }),
+  mounted() {
+    socket.on("connection", (data) => {
+      console.log(data, 'user connected');
+    });
+  },
+
   watch: {
-    // window.innerHeight
   },
   methods: {
+    makeJump() {
+      socket.emit("jump", (data) => {
+      console.log(data, 'user jumpred emitted');
+      });
+      }
   }
 }
 </script>
-
 <style>
 img:hover {
   opacity: 0.5;

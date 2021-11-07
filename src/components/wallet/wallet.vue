@@ -34,11 +34,11 @@
 
 <script>
 
-import Web3 from 'web3';
-import ChainError from "@/components/wallet/chainError";
+// import Web3 from 'web3';
+
 export default {
   name: 'Wallet',
-  components: {ChainError},
+  components: {},
   data: () => ({
     accountConnected: null,
     connected: false,
@@ -46,16 +46,16 @@ export default {
   }),
 
   methods: {
-    async connectWallet() {
-      if (typeof window.ethereum !== 'undefined') {
-        const web = new Web3(Web3.givenProvider);
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const chainId = await web.eth.getChainId();
-        console.log(chainId)
-        this.accountConnected = accounts[0]
-        this.connected = true;
-      }
-    }
+    // async connectWallet() {
+    //   if (typeof window.ethereum !== 'undefined') {
+    //     const web = new Web3(Web3.givenProvider);
+    //     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    //     const chainId = await web.eth.getChainId();
+    //     console.log(chainId)
+    //     this.accountConnected = accounts[0]
+    //     this.connected = true;
+    //   }
+    // }
   },
   mounted() {
     this.connectWallet();

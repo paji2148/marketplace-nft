@@ -1,17 +1,52 @@
 <template>
-
     <div class="wrapper">
       <div id="countdown">
-        10:00
+        {{displayTime}}
       </div>
-      <button>CHANGE</button>
     </div>
 
 </template>
 
 <script>
+
+import { mapMutations, mapGetters } from 'vuex';
+
+import { GET_RESET_TIMER } from '../../store/timer';
+import { SET_GAME_STATUS } from '../../store/game';
+
 export default {
   name: 'Timer',
+  data: () => ({
+     displayTime: 10
+  }),
+  computed: {
+    ...mapGetters({
+      resetCountDown: GET_RESET_TIMER
+      }),
+  },
+  mounted() {
+    setTimeout(this.countdown, 1000);
+  },
+   methods: {
+    ...mapMutations({
+      updateGameStatus: SET_GAME_STATUS
+    }),
+    countdown () {
+        if (this.displayTime > 0) {
+          setTimeout(() => {
+            this.countdown(this.displayTime -= 1)
+            ;
+          }, 1000);
+        } else {
+          this.updateGameStatus(false)
+        }
+      },
+  },
+  watch: {
+    resetCountDown() {
+      this.displayTime = 5;
+    },
+  }
 }
 </script>
 

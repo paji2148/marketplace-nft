@@ -11,10 +11,15 @@
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
     "ethers": "^5.5.1",
+    "single-spa-vue": "^2.5.1",
+    "socket.io-client": "^4.3.2",
     "vue": "^2.6.11",
     "vue-router": "^3.5.3",
+    "vue-socket.io": "^3.0.10",
+    "vue-socket.io-extended": "^4.2.0",
     "vuex": "^3.6.2",
-    "web3": "^1.6.0"
+    "web3": "^1.6.0",
+    "webpack": "^4.46.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
