@@ -11,44 +11,42 @@
 
 import { mapMutations, mapGetters } from 'vuex';
 
-import { GET_TIMER, SET_TIMER } from '../../store/timer';
-import { SET_PLAYER_ELIMINATED } from '../../store/game';
+import { GET_RESET_TIMER } from '../../store/timer';
+import { SET_QUESTION_STATUS } from '../../store/game';
 
 export default {
   name: 'Timer',
   data: () => ({
-    //  displayTime: 10
+     displayTime: 10
   }),
   computed: {
     ...mapGetters({
-      displayTime: GET_TIMER,
+      resetCountDown: GET_RESET_TIMER
       }),
-  },
-  watch: {
-    // resetCountDown() {
-    //   this.displayTime = 10;
-    // },
   },
   mounted() {
     setTimeout(this.countdown, 1000);
   },
    methods: {
     ...mapMutations({
-      eliminated: SET_PLAYER_ELIMINATED,
-      decreaseTime: SET_TIMER
+      updateGameStatus: SET_GAME_STATUS
     }),
     countdown () {
         if (this.displayTime > 0) {
           setTimeout(() => {
-            this.decreaseTime();
-            // this.countdown(this.displayTime -= 1)
-
+            this.countdown(this.displayTime -= 1)
+            ;
           }, 1000);
         } else {
-          this.eliminated(true);
+          this.updateGameStatus(false)
         }
       },
   },
+  watch: {
+    resetCountDown() {
+      this.displayTime = 5;
+    },
+  }
 }
 </script>
 

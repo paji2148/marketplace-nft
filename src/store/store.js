@@ -15,7 +15,8 @@ const store = new Vuex.Store({
         Question,
         Timer,
         Game,
-        Wallet
+        Wallet,
+        // Game2,
     }
 })
 

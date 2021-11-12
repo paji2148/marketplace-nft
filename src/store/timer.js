@@ -1,27 +1,27 @@
-export const GET_RESET_TIMER = 'GET_RESET_TIMER';
+export const GET_TIMER = 'GET_TIMER';
 
-export const SET_RESET_TIMER = 'SET_RESET_TIMER';
+export const SET_TIMER = 'SET_TIMER';
 
-export const RESET_TIMER_ON_STEP = 'RESET_TIMER_ON_STEP';
+export const RESET_TIMER = 'RESET_TIMER';
 
 const getters = {
-    [GET_RESET_TIMER]: (state) => state.resetTimer,
+    [GET_TIMER]: (state) => state.timer,
 };
 
 const mutations = {
-    [SET_RESET_TIMER]: (state) => {
-        state.resetTimer += 1
+    [SET_TIMER]: (state) => {
+        state.timer -= 1
     },
+    [RESET_TIMER]: (state) => {
+        state.timer = 10
+    },      
 };
 
-const actions = {
-    [RESET_TIMER_ON_STEP] ({ commit}){
-        commit(SET_RESET_TIMER);
-    },            
+const actions = {     
 };
 
 const initialState = {
-    resetTimer: true,
+    timer: 10,
 };
 
 export default {

@@ -1,33 +1,31 @@
 <template>
     <div class="squid_main">
-      <div class="squid_gameover" v-if="dead || !currentGameStatus">
-        <b>YOU ARE ELIMINATED</b>
+      <div class="squid_gameover" v-if="!status">
+          <button v-on:click="startNewGame">start game</button>        
       </div>
-      <div v-else>
-      <Timer/>
-      <div style="margin-top: 8%" class="squid_container" >
-        <div class="squid_row " v-for="j in row" :key="j">
-          <div class="glass" v-for="k in col" :key="k" v-on:click="makeJump" :class="position===k ? 'glass_enabled' : 'glass_disabled'">
-            <!-- <button class="button-squid" v-on:click="makeJump"></button> -->
-           <!-- <img class="img-squid" src="http://localhost:8080/design81.png" alt="logo"> -->
-          </div>
-        </div>
-        </div>
-      </div>
-      </div>
+            <div v-else>
+              <Timer/>
+              <div style="margin-top: 8%" class="squid_container">
+                <div class="squid_row" v-for="j in row" :key="j">
+                  <div class="glass" v-for="k in col" :key="k" v-on:click="takeJump" :id="j.toString()+k.toString()"
+                  :class="[ (position===j.toString()+k.toString() ? 'cur_glass' : ''),
+                  ((position%10) + 1===k ? 'glass_enabled' : 'glass_disabled')]"></div>
+                </div>
+              </div>
+            </div>
+    </div>
 </template>
-
 <script>
 
-import { io } from 'socket.io-client';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 
-const socket = io('http://localhost:3000');
-
-import {RESET_TIMER_ON_STEP} from '../../store/timer';
-import {GET_GAME_STATUS, SET_GAME_STATUS} from '../../store/game';
+import { RESET_TIMER } from '../../store/timer';
+import { GET_GAME_STATUS, GET_PLAYER_ELIMINATED, GET_PLAYER_POSITION, 
+GET_SQUID_COMPLETED, SET_GAME_STATUS, START_GAME, MAKE_JUMP
+ } from '../../store/game';
 
 import Timer from "@/components/games/timer";
+
 export default {
   name: 'Squid',
   components: {
@@ -36,42 +34,43 @@ export default {
   data: () => ({
     row: 2,
     col:6,
-    dead: false,
-    position: 1,
   }),
   mounted() {
-    socket.on("connection", () => {
-      // console.log(data, 'user connected');
-      this.updateGameStatus(true)
-    });
-    socket.on("land", (data) => {
-      this.position += 1;
-      console.log('reseting the timer')
-      this.resetTimer();
-      this.dead = data.dead;
-      if (this.dead === true) {
-        this.finishGame();
-        socket.disconnect();
-        }
-      })
   },
   watch: {
+    playerEliminated() {
+      if (this.playerEliminated === true) {
+        this.updateGameStatus(false);
+      }
+    },
+    gameWon() {
+      if (this.gameWon === true) {
+        this.updateGameStatus(false);
+      }
+    }
   },
   computed: {
     ...mapGetters({
-      currentGameStatus: GET_GAME_STATUS
+      status: GET_GAME_STATUS,
+      playerEliminated: GET_PLAYER_ELIMINATED,
+      gameWon: GET_SQUID_COMPLETED,
+      position: GET_PLAYER_POSITION,
     })
   },
   methods: {
     ...mapActions({
-      resetTimer: RESET_TIMER_ON_STEP,
+      startNewGame: START_GAME,
+      jump: MAKE_JUMP,
     }),
     ...mapMutations({
-      updateGameStatus: SET_GAME_STATUS
+      resetTimer: RESET_TIMER,
+      updateGameStatus: SET_GAME_STATUS,
     }),
-    makeJump() {
-      console.log("clicked")
-      socket.emit("jump", {step: 0});
+    async takeJump(event) {
+
+      // console.log(, 'id issjsjsj');
+      this.resetTimer();
+      await this.jump(event.currentTarget.id);
     }
   }
 }
@@ -100,9 +99,20 @@ export default {
 .glass_disabled {
  pointer-events: none;
  }
+
 .glass_enabled {
   cursor: pointer;
+  /* background: url("http://localhost:8080/sgame.jpg") no-repeat;
+  background-size: 100% 100%;
+  padding: 5px; */
 }
+
+.cur_glass {
+  cursor: pointer;
+  background: url("http://localhost:8080/sgame.jpg") no-repeat;
+  background-size: 100% 100%;
+}
+
 /* #button-squid{
     background-color: #bbb;
     display: block;

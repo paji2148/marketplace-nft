@@ -8,14 +8,14 @@
       <div class="filter__summary d-flex flex-column" style="justify-content: space-around">
         <div class="filter__summary d-flex flex-column" style="justify-content: space-around">
           <div class="d-flex justify-content-between">
-            InGame: 1 $CRG <a style="font-size: 21px; float:left; text-decoration:none;" title="Transfer to BSC" href="#" class="js-claim-tokens" >
+            InGame: {{clgAmount}} $CRG <a style="font-size: 21px; float:left; text-decoration:none;" title="Transfer to BSC" href="#" class="js-claim-tokens" >
             <span style="color: rgb(230 0 0); margin-left: 6px;">--&gt;</span>
           </a>
           </div>
           <div class="d-flex justify-content-between">
             <a style="font-size: 21px; float:left; text-decoration:none;" title="Transfer to BSC" href="#" class="js-claim-tokens" >
               <span style="color: rgb(230 0 0); margin-left: 6px;">--></span>
-            </a> OnBSC:&nbsp;<span id="on-chain-balance"></span>1 &nbsp;$CRG
+            </a> OnBSC:&nbsp;<span id="on-chain-balance"></span>{{lifeToken}} &nbsp;$CRG
           </div>
         </div>
       </div>
@@ -34,17 +34,25 @@
 
 <script>
 
-// import Web3 from 'web3';
+import { mapGetters } from 'vuex';
+
+import {
+  GET_INGAME_CLG,
+  GET_LIFE_TOKEN,
+} from '../../store/wallet';
 
 export default {
   name: 'Wallet',
   components: {},
   data: () => ({
-    accountConnected: null,
-    connected: false,
     onBscChain: true,
   }),
-
+  computed: {
+    ...mapGetters({
+      clgAmount:  GET_INGAME_CLG,
+      lifeToken:  GET_LIFE_TOKEN,
+    })
+  },
   methods: {
     // async connectWallet() {
     //   if (typeof window.ethereum !== 'undefined') {
@@ -58,18 +66,19 @@ export default {
     // }
   },
   mounted() {
-    this.connectWallet();
+    // this.connectWallet();
+    // console.log('dmd md dm')
   },
-  created: function() {
-    window.ethereum.on('accountsChanged', (accounts) => {
-      if (accounts[0] !== this.accountConnected) {
-        this.connected = false;
-      }
-    });
-    window.ethereum.on("chainChanged", () => {
-      document.location.reload();
-    });
-  },
+  // created: function() {
+  //   window.ethereum.on('accountsChanged', (accounts) => {
+  //     if (accounts[0] !== this.accountConnected) {
+  //       this.connected = false;
+  //     }
+  //   });
+  //   window.ethereum.on("chainChanged", () => {
+  //     document.location.reload();
+  //   });
+  // },
 }
 </script>
 <style>

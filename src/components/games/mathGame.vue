@@ -1,5 +1,12 @@
 <template>
-  <div id="qst-dv">
+  <div id="math_main">
+    <div class="math_gameover" v-if="!currentGameStatus">
+      <b>Game Over</b>
+    </div>
+  <div v-else>
+    <Timer/>
+
+   <div id="qst-dv">
     <div v-if="loading">
       <h2>Loading Next Question</h2>
     </div>
@@ -20,12 +27,20 @@
         <p v-else id="wrgAnswer">Incorrect answer</p>
       </div>
     </div>
+   </div>
+  </div>
   </div>
 </template>
 
 <script>
 
-import { mapGetters, mapActions, mapMutations} from 'vuex';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
+
+import {RESET_TIMER_ON_STEP} from '../../store/timer';
+import {GET_GAME_STATUS, SET_GAME_STATUS} from '../../store/game';
+
+import Timer from "@/components/games/timer";
+
 import { GET_LOADING, GET_OPTIONS, GET_QUESTION, GET_ANSWER, GET_ERROR,
   SET_LOADING, FETCH_NEW_QUESTION } from "../../store/question";
 
@@ -33,8 +48,12 @@ export default {
   name: 'MathQuiz',
   data: () => ({
     isAnswered: false,
-    success: null
+    success: null,
+    questionNumber: 3,
   }),
+  components: {
+    Timer
+  },
   mounted() {
     this.fetchQuestion();
   },
@@ -44,7 +63,8 @@ export default {
       question: GET_QUESTION,
       answer: GET_ANSWER,
       options: GET_OPTIONS,
-      error : GET_ERROR
+      error : GET_ERROR,
+      currentGameStatus: GET_GAME_STATUS
     })
   },
   watch: {
@@ -55,10 +75,12 @@ export default {
   },
   methods: {
     ...mapActions({
-      fetchQuestion: FETCH_NEW_QUESTION
+      fetchQuestion: FETCH_NEW_QUESTION,
+      resetTimer: RESET_TIMER_ON_STEP,
     }),
     ...mapMutations({
-      changeLoadingStatus: SET_LOADING
+      changeLoadingStatus: SET_LOADING,
+      updateGameStatus: SET_GAME_STATUS
     }),
     checkAnswer (value) {
       this.isAnswered = true;

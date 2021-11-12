@@ -1,9 +1,8 @@
 <template>
   <div>
     <Header/>
-    <Home />
     <router-view :key="$route.path"/>
-   <Footer/>
+   <!-- <Footer/> -->
   </div>
 </template>
 <script>
@@ -12,13 +11,13 @@ import {
   GET_IS_WALLET_CONNECTED,
   GET_ACCOUNT_ADDRESS,
   SET_IS_WALLET_CONNECTED,
-  SET_ACCOUNT_ADDRESS
+  SET_ACCOUNT_ADDRESS,
+  FETCH_USER_WALLET,
 } from '../store/wallet';
 
 import Header from './header';
-import Footer from './footer1';
-import { mapGetters, mapMutations } from 'vuex';
-import Home from './home.vue';
+// import Footer from './footer1';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'Base',
@@ -26,20 +25,31 @@ export default {
   }),
   components: {
     Header,
-    Footer,
-    Home
+    // Footer,
+  },
+  watch: {
+    walletConnected () {
+      console.log('in watch wallet connected')
+      this.fetchWallet();
+    }
   },
   mounted() {
+    console.log("connecitng wallet")
     this.connectWallet();
   },
-  methods: {
+  computed: {
     ...mapGetters({
       walletConnected: GET_IS_WALLET_CONNECTED,
       walletAddress: GET_ACCOUNT_ADDRESS
     }),
+  },
+  methods: {
     ...mapMutations({
       updateWalletConnected: SET_IS_WALLET_CONNECTED,
       setWalletAddress: SET_ACCOUNT_ADDRESS,
+    }),
+    ...mapActions({
+      fetchWallet: FETCH_USER_WALLET
     }),
     async connectWallet() {
       if (typeof window.ethereum !== 'undefined') {

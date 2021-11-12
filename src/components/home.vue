@@ -1,11 +1,11 @@
 <template>
   <div v-if="walletConnected">
-    <a href="/squid">
-      <b>Skid game</b>
-    </a>
-    <a href="/mathGame">
-      <b>  math Game</b>
-    </a>
+    <button v-on:click="redirectToGame('squid')">
+      <b>Skid Game</b>
+    </button>
+    <button v-on:click="redirectToGame('math')">
+      <b>Math Game</b>
+    </button>
   </div>
 </template>
 <script>
@@ -27,10 +27,12 @@ export default {
     }),
   },
   methods: {
+    redirectToGame(value){
+      this.$router.push('/game/' + value);
+    }
   },
 }
 </script>
 
 <style>
-
 </style>
