@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
+    "ethereumjs-abi": "^0.6.8",
     "ethers": "^5.5.1",
     "single-spa-vue": "^2.5.1",
     "socket.io-client": "^4.3.2",

@@ -1,6 +1,6 @@
 <template>
     <div class="wallet_container" id="">
-      <div v-if="!onBscChain"><ChainError/></div>
+      <div v-if="!onBscChain">chain gerror</div>
       <div v-else style="text-align: center">My Tokens</div>
 
       <div class="filter__summary-line"></div>
@@ -84,7 +84,7 @@ export default {
 <style>
 .wallet_container{
   width: 350px;
-  height: 400px;
+  height: 500px;
   margin: 25px auto auto;
   padding-left: 25px;
   padding-top: 30px;

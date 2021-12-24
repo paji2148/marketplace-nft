@@ -1,7 +1,7 @@
 <template>
   <div class="header">
       <a href="#default" class="logo">CRG</a>
-      <a href="home">Home</a>
+      <a href="/">Home</a>
       <a href="roadmap">Roadmap</a>
     <div class="header-right">
       <a href="my-wallet">My Wallet</a>
@@ -23,15 +23,16 @@ export default {
 
 .header {
   overflow: hidden;
+  background: black;
 }
 
 .header a {
   float: left;
-  color: black;
+  /* color: black; */
   text-align: center;
-  padding: 12px;
+  padding: 15px;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 22px;
   line-height: 25px;
   border-radius: 4px;
 }

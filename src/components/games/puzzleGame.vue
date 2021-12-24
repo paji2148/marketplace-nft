@@ -7,9 +7,9 @@
 </template>
 <script>
 
-import { io } from 'socket.io-client';
+// import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:3000');
+// const socket = io('http://localhost:3000');
 
 export default {
   name: 'Puzzle',
@@ -19,18 +19,18 @@ export default {
     pieces: 12,
   }),
   mounted() {
-    socket.on("connection", (data) => {
-      console.log(data, 'user connected');
-    });
+    // socket.on("connection", (data) => {
+    //   console.log(data, 'user connected');
+    // });
   },
 
   watch: {
   },
   methods: {
     makeJump() {
-      socket.emit("jump", (data) => {
-      console.log(data, 'user jumpred emitted');
-      });
+      // socket.emit("jump", (data) => {
+      // console.log(data, 'user jumpred emitted');
+      // });
       }
   }
 }

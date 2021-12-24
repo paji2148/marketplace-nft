@@ -1,8 +1,8 @@
 import api from './api';
 
-const startGameApi = async () => {
+const startGameApi = async (signature, address) => {
     try {
-        const game = await api.post('/play');
+        const game = await api.post('/play', {sign: signature, publicAddress: address});
         
         return game.data;
     } catch (err) {

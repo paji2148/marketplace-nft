@@ -56,9 +56,9 @@ const getDefaultState = () => {
   
 
 const actions = {
-    async [START_GAME] ({ commit }){
+    async [START_GAME] ({ commit }, signature, address){
         try {
-            const res = await data.startGameApi();
+            const res = await data.startGameApi(signature, address);
             commit(SET_GAME_STATUS, res.gameStatus);
             commit(SET_PLAYER_ELIMINATED, false);
             commit(SET_SQUID_COMPLETED, false);
