@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = 'http://localhost:3000'
+const url = 'http://api.dunefall.com/'
 
 export default {
     get(path){
@@ -10,8 +10,4 @@ export default {
     post(path, data){
         return axios.post( url+ path, data, {withCredentials: true} );
     },
-
-    // create(path){
-    //     return axios.post(url + path);
-    // }
 }

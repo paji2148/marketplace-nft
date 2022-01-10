@@ -1,7 +1,6 @@
 'use strict';
 
 import data from '../api/startGame';
-import jump from '../api/jump';
 
 export const GET_GAME_STATUS = 'GET_GGAME_STATUS';
 export const GET_PLAYER_ELIMINATED = 'GET_PLAYER_ELIMINATED';
@@ -64,17 +63,6 @@ const actions = {
             commit(SET_SQUID_COMPLETED, false);
             commit(SET_PLAYER_POSITION, 0);
             commit(SET_GAME_ERROR, false);
-        } catch (err) {
-            commit(SET_GAME_ERROR, true);
-        }
-    },
-    async [MAKE_JUMP] ({ commit }, position){
-        try {
-            const res = await jump.jumpAPi({jumpTo: position});
-            commit(SET_PLAYER_ELIMINATED, res.dead);
-            commit(SET_GAME_STATUS, res.gameStatus);
-            commit(SET_PLAYER_POSITION, res.position);
-            commit(SET_SQUID_COMPLETED, res.completed)
         } catch (err) {
             commit(SET_GAME_ERROR, true);
         }

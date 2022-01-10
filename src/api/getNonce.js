@@ -10,5 +10,5 @@ const getNonceApi = async () => {
 };
 
 export default {
-    loginApi
+    getNonceApi
 };

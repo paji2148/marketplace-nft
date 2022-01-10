@@ -68,18 +68,4 @@ export default {
 </script>
 
 <style>
-
-.base {
-  /* background: url("http://localhost:8080/wepik-2021112-134644.png"); */
-  background: url("http://localhost:8080/final_background.png");opacity: 0.95;
-  background-size: 100% 100%;
-  height:100%;
-}
-.main {
-  background: url("http://localhost:8080/final_background.png");opacity: 0.95;
-  /* background-image:; */
-  background-size: 100% 100%;
-  /* height:100%; */
-  /* padding-bottom: 300px; */
-  }
 </style>

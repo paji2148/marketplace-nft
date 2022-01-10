@@ -30,9 +30,6 @@
                 <div class="list">
                     <div class="item1">
                         <div class="section1">
-                            <!-- <div class="icon down">
-                                <i class="fas fa-arrow-up"></i>
-                            </div> -->
                             <div class="text">
                                 <div class="title">DUNEFALL</div>
                                 <div class="description">All rights reserved</div>
@@ -49,11 +46,8 @@
 import Web3 from 'web3';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 import contractAbi from './games/cont.json';
-// import { RESET_TIMER } from '../../store/timer';
 
-import { GET_GAME_STATUS, GET_PLAYER_ELIMINATED, GET_PLAYER_POSITION, 
-GET_SQUID_COMPLETED, START_GAME
- } from '../store/game';
+import { GET_GAME_STATUS, START_GAME } from '../store/game';
 
 import {
   GET_IS_WALLET_CONNECTED,
@@ -62,9 +56,6 @@ import {
 import {
   GET_ACCOUNT_ADDRESS,
 } from '../store/wallet';
-
-// import Timer from "@/components/games/timer";
-
 
 export default {
   name: 'Game',
@@ -79,9 +70,6 @@ export default {
   computed: {
     ...mapGetters({
       status: GET_GAME_STATUS,
-      playerEliminated: GET_PLAYER_ELIMINATED,
-      gameWon: GET_SQUID_COMPLETED,
-      position: GET_PLAYER_POSITION,
       walletAddress: GET_ACCOUNT_ADDRESS,
       isConnected: GET_IS_WALLET_CONNECTED,
     })
@@ -94,17 +82,14 @@ export default {
     }),
 
     async deposit(value, token) {
-      const contract = '0x340f2d79a6f9df826c1df4a84934a221a2b8ec05';
+      const contract = '0x340f2d79a6f9df426c1df4a84934a221a2b8ec05';
       const web3 = new Web3(Web3.givenProvider);
-      // console.log(
-      //   await web3.eth.personal.sign(web3.utils.toHex("Sign to Login. Nonce: 2dda52a88115"), '0x340f2d79a6f9df826c1df4a84934a221a2b8ec05')
-      //   );
         if (token === 'BUSD' || token !== 'BUSD') {
           const myContract = new web3.eth.Contract(
             contractAbi,
-            '0x397bBd6A0E41bdF4C3F971731E180Db8Ad06eBc1'
+            '0x397bBd6A0E41bdF4C2F971731E380Db8Ad06eBc1'
           )
-          const result = await myContract.methods.name().call({
+          const result = await myContract.methods.deposit(value).send({
             to: contract,
             from: this.walletAddress});
           console.log(result);
@@ -112,39 +97,25 @@ export default {
     },
 
     async withdraw(value, token) {
-      const contract = '0x340f2d79a6f9df826c1df4a84934a221a2b8ec05';
+      const contract = '0x340f2d79a6f9df826c1df4a85934a226a2b8ec00';
       const web3 = new Web3(Web3.givenProvider);
-      // console.log(
-      //   await web3.eth.personal.sign(web3.utils.toHex("Sign to Login. Nonce: 2dda52a88115"), '0x340f2d79a6f9df826c1df4a84934a221a2b8ec05')
-      //   );
-        if (token === 'BUSD' || token !== 'BUSD') {
+        if (token === 'BUSD') {
           const myContract = new web3.eth.Contract(
             contractAbi,
             '0x397bBd6A0E41bdF4C3F971731E180Db8Ad06eBc1'
           )
-          const result = await myContract.methods.name().call({
+          const result = await myContract.methods.withdraw(value).send({
             to: contract,
-            from: this.walletAddress});
+            from: this.walletAddress,});
           console.log(result);
         }
     },
     
-    async startNewGame(){
-    // const contractAddress = '0x48340C8bF67667CE49F291908977573e1203d445';
-     const web3 = new Web3(Web3.givenProvider);
-    //  const contract = await this.loadContract(web3);
-    //  console.log(contract);
-    //  console.log(await web3.eth.personal.sign(hash, this.walletAddress));
-    
+    async signUser(){
+     const web3 = new Web3(Web3.givenProvider);    
     console.log(
-      await web3.eth.personal.sign(web3.utils.toHex("Sign to Login. Nonce: 2dda52a88115"), '0x340f2d79a6f9df826c1df4a84934a221a2b8ec05')
+      await web3.eth.personal.sign(web3.utils.toHex("Sign to Login. Nonce: 2dda52a88115"), this.walletAddress)
       );
-    // const nonce = '4RPDRY3G';
-    // const value = '2';
-    // const address = '0xb696E127f8e147AadDBFf5172BC4CdF25859be90';
-    // console.log(
-    //   await web3.eth.personal.sign(web3.utils.toHex("Amount:".concat(value, " AVXT\n") + "Address: ".concat(address, "\n") + "Nonce: ".concat(nonce)), '0xb696E127f8e147AadDBFf5172BC4CdF25859be90')
-    //   )
       }
   }
 }
