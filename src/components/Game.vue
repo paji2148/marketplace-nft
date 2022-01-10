@@ -73,7 +73,6 @@ import {
 export default {
   name: 'Game',
   components: {
-    // Timer
   },
   data: () => ({
   }),
