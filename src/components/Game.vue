@@ -1,43 +1,32 @@
 <template>
     <div class="container">
+      <div class="topconatiner">
+        Wallet connected: x04f..24df
+      </div>
         <div class="mobile">
             <div class="header">
-                <div class="navigation">
-                    <i class="fas fa-arrow-left"></i>
-                </div>
-                <div class="filter">
-                    <div class="calendar">
-                        <i class="far fa-calendar-alt"></i>
-                    </div>
-                    <div class="option">Deposit BUSD</div>
-                </div>
-                <div class="filter">
-                    <div class="calendar">
-                        <i class="far fa-calendar-alt"></i>
-                    </div>
-                    <div class="option">Deposit DFNX</div>
-                </div>
+               <div class='btnmenu'>
+                 <button class="btndeposit" v-on:click="deposit('BUSD')">Deposit BUSD</button>
+                 <button class="btnwithdraw">Withdraw BUSD</button>
+               </div>
+               <div class='btnmenu'>
+                 <button class="btndeposit">Deposit DFNX</button>
+                 <button class="btnwithdraw">Withdraw DFNX</button>
+               </div>
+                    
             </div>
             <div class="content">
                 <div class="total">
-                    <div class="label">BUSD balance</div>
+                    <div class="label">Ingame BUSD balance</div>
                     <div class="value">10</div>
                 </div>
                 <div class="total">
-                    <div class="label">DFNX balance</div>
+                    <div class="label">Ingame DFNX balance</div>
                     <div class="value">10</div>
                 </div>
-                <button class='playbutton'>Play</button>
-                    
-                <ul class="menu">
-                    <li>
-                        <input type="radio" id="tab1" name="amount" checked="checked" />
-                        <label for="tab1">
-                            <i class="fas fa-arrow-up"></i>
-                            History</label>
-
-                    </li>
-                </ul>
+                <div>
+                <button class='btnplay'>Play</button>
+                </div>
                 <div class="list">
                     <div class="item1">
                         <div class="section1">
@@ -45,7 +34,7 @@
                                 <i class="fas fa-arrow-up"></i>
                             </div>
                             <div class="text">
-                                <div class="title">game played</div>
+                                <div class="title">Last game played</div>
                                 <div class="description">Today, 13:45</div>
                             </div>
                         </div>
@@ -53,37 +42,7 @@
                             <div class="signal negative">-</div>
                             <div class="value">BUSD- 10, DFNX- 12</div>
                         </div>
-                    </div>
-                    <div class="item2">
-                        <div class="section1">
-                            <div class="icon up">
-                                <i class="fas fa-arrow-up"></i>
-                            </div>
-                            <div class="text">
-                                <div class="title">game played</div>
-                                <div class="description">Today, 13:45</div>
-                            </div>
-                        </div>
-                        <div class="section2">
-                            <div class="signal positive">+</div>
-                            <div class="value">BUSD: 10, DFNX: 12</div>
-                        </div>
-                    </div>
-                    <div class="item3">
-                        <div class="section1">
-                            <div class="icon down">
-                                <i class="fas fa-arrow-up"></i>
-                            </div>
-                            <div class="text">
-                                <div class="title">game</div>
-                                <div class="description">BUSD: 10, DFNX: 12</div>
-                            </div>
-                        </div>
-                        <div class="section2">
-                            <div class="signal negative">-</div>
-                            <div class="value">BUSD: 10, DFNX: 12</div>
-                        </div>
-                    </div>
+                    </div>                    
                 </div>
             </div>
         </div>
@@ -93,16 +52,16 @@
 
 import Web3 from 'web3';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
-
+import contractAbi from './games/cont.json';
 // import { RESET_TIMER } from '../../store/timer';
 
 import { GET_GAME_STATUS, GET_PLAYER_ELIMINATED, GET_PLAYER_POSITION, 
 GET_SQUID_COMPLETED, START_GAME
  } from '../store/game';
 
-// import {
-//   GET_IS_SIGNED, LOGIN_WALLET
-// } from '../../store/login';
+import {
+  GET_IS_WALLET_CONNECTED,
+} from '../store/login';
 
 import {
   GET_ACCOUNT_ADDRESS,
@@ -129,15 +88,51 @@ export default {
       gameWon: GET_SQUID_COMPLETED,
       position: GET_PLAYER_POSITION,
       walletAddress: GET_ACCOUNT_ADDRESS,
+      isConnected: GET_IS_WALLET_CONNECTED,
     })
   },
   methods: {
     ...mapActions({
       startGameApi: START_GAME,
-      // loginWallet: LOGIN
     }),
     ...mapMutations({
     }),
+
+    async deposit(value, token) {
+      const contract = '0x340f2d79a6f9df826c1df4a84934a221a2b8ec05';
+      const web3 = new Web3(Web3.givenProvider);
+      // console.log(
+      //   await web3.eth.personal.sign(web3.utils.toHex("Sign to Login. Nonce: 2dda52a88115"), '0x340f2d79a6f9df826c1df4a84934a221a2b8ec05')
+      //   );
+        if (token === 'BUSD' || token !== 'BUSD') {
+          const myContract = new web3.eth.Contract(
+            contractAbi,
+            '0x397bBd6A0E41bdF4C3F971731E180Db8Ad06eBc1'
+          )
+          const result = await myContract.methods.name().call({
+            to: contract,
+            from: this.walletAddress});
+          console.log(result);
+        }
+    },
+
+    async withdraw(value, token) {
+      const contract = '0x340f2d79a6f9df826c1df4a84934a221a2b8ec05';
+      const web3 = new Web3(Web3.givenProvider);
+      // console.log(
+      //   await web3.eth.personal.sign(web3.utils.toHex("Sign to Login. Nonce: 2dda52a88115"), '0x340f2d79a6f9df826c1df4a84934a221a2b8ec05')
+      //   );
+        if (token === 'BUSD' || token !== 'BUSD') {
+          const myContract = new web3.eth.Contract(
+            contractAbi,
+            '0x397bBd6A0E41bdF4C3F971731E180Db8Ad06eBc1'
+          )
+          const result = await myContract.methods.name().call({
+            to: contract,
+            from: this.walletAddress});
+          console.log(result);
+        }
+    },
     
     async startNewGame(){
     // const contractAddress = '0x48340C8bF67667CE49F291908977573e1203d445';
@@ -145,7 +140,7 @@ export default {
     //  const contract = await this.loadContract(web3);
     //  console.log(contract);
     //  console.log(await web3.eth.personal.sign(hash, this.walletAddress));
-    console.log(this.walletAddress);
+    
     console.log(
       await web3.eth.personal.sign(web3.utils.toHex("Sign to Login. Nonce: 2dda52a88115"), '0x340f2d79a6f9df826c1df4a84934a221a2b8ec05')
       );
@@ -175,26 +170,25 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
     height: 100%;
     font-weight: 100;
     background-color: var(--main-color);
   }
   
   .container {
-    margin-top: 50px;
-    display: grid;
-    grid-template-columns: auto;
-    justify-content: center;
+    margin: 50px;
     height: 100%;
   }
   
   .mobile {
     width: 360px;
     height: 640px;
-    align-self: center;
-    display: grid;
+    text-align: center;
+    justify-content: center;
     grid-template-rows: 10% auto;
     color: #fff;
+    margin: auto;
   }
   
   .mobile > div {
@@ -208,6 +202,8 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 25px;
+    padding-bottom: 25px;
   }
   
   .filter {
@@ -396,7 +392,7 @@ export default {
     display: grid;
     grid-gap: 5px;
     padding: 5px 0;
-    height: 180px;
+    /* height: 180px; */
     overflow-y: auto;
   }
   
@@ -452,5 +448,65 @@ export default {
     padding: 10px;
     border-radius: 25%;
 }
+#lastgame {
+  margin-top: 20px;
+  height: 40px;
+}
 
+.btndeposit {
+  background-color: #21223f;
+  color: white;
+  outline:none;
+  height: 40px;
+  text-align: center;
+  width: 130px;
+  border-radius:40px;
+  border: 2px solid green;
+  letter-spacing:1px;
+  text-shadow:0;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin-bottom: 10px;
+  margin-top: 25px;
+  }
+
+  .btnwithdraw {
+  background-color: #21223f;
+  color: white;
+  outline:none;
+  height: 40px;
+  text-align: center;
+  width: 130px;
+  border-radius:40px;
+  border: 2px solid red;
+  letter-spacing:1px;
+  text-shadow:0;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  /* margin-bottom: 25px; */
+  }
+
+  .btnplay {
+  background-color: #21223f;
+  color: white;
+  outline:none;
+  height: 40px;
+  text-align: center;
+  width: 130px;
+  border-radius:40px;
+  border: 2px solid green;
+  letter-spacing:1px;
+  text-shadow:0;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin-bottom: 20px;
+  margin-top: 30px;
+  margin-bottom: 70px;
+  }
+
+.topconatiner {
+  color: black;
+  font: 20px;
+  margin-top: 30px;
+}
 </style>

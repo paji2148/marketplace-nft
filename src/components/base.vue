@@ -25,12 +25,10 @@ export default {
   },
   watch: {
     walletConnected () {
-      console.log('in watch wallet connected')
       this.fetchWallet();
     }
   },
   mounted() {
-    console.log("connecitng wallet")
     this.connectWallet();
   },
   computed: {
@@ -51,7 +49,6 @@ export default {
       if (typeof window.ethereum !== 'undefined') {
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         this.updateWalletConnected(true);
-        console.log('cbfjkbfkjbfjk')
         this.setWalletAddress(accounts[0]);
       }
     }
