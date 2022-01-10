@@ -1,10 +1,6 @@
 <template>
-  <div class="base">
-    <Header/>
-    <div class='main'>
-    <router-view :key="$route.path"/>
-    </div>
-    <Footer/>
+  <div>
+    <Game />
   </div>
 </template>
 <script>
@@ -17,8 +13,7 @@ import {
   FETCH_USER_WALLET,
 } from '../store/wallet';
 
-import Header from './header';
-import Footer from './footer';
+import Game from './Game.vue';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 export default {
@@ -26,8 +21,7 @@ export default {
   data: () => ({
   }),
   components: {
-    Header,
-    Footer,
+    Game,
   },
   watch: {
     walletConnected () {
