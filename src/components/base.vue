@@ -1,6 +1,11 @@
 <template>
   <div>
-    <Game />
+    <div v-if="spinner">
+      <Roller />
+    </div>
+    <div v-else>
+      <Game />
+    </div>
   </div>
 </template>
 <script>
@@ -14,14 +19,17 @@ import {
 } from '../store/wallet';
 
 import Game from './Game.vue';
+import Roller from './Roller.vue';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'Base',
   data: () => ({
+    spinner: true
   }),
   components: {
     Game,
+    Roller
   },
   watch: {
     walletConnected () {
@@ -30,6 +38,9 @@ export default {
   },
   mounted() {
     this.connectWallet();
+    setTimeout(() => {
+      this.spinner = false;
+    }, 1300);
   },
   computed: {
     ...mapGetters({

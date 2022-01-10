@@ -30,17 +30,13 @@
                 <div class="list">
                     <div class="item1">
                         <div class="section1">
-                            <div class="icon down">
+                            <!-- <div class="icon down">
                                 <i class="fas fa-arrow-up"></i>
-                            </div>
+                            </div> -->
                             <div class="text">
-                                <div class="title">Last game played</div>
-                                <div class="description">Today, 13:45</div>
+                                <div class="title">DUNEFALL</div>
+                                <div class="description">All rights reserved</div>
                             </div>
-                        </div>
-                        <div class="section2">
-                            <div class="signal negative">-</div>
-                            <div class="value">BUSD- 10, DFNX- 12</div>
                         </div>
                     </div>                    
                 </div>
@@ -391,8 +387,9 @@ export default {
     display: grid;
     grid-gap: 5px;
     padding: 5px 0;
-    /* height: 180px; */
     overflow-y: auto;
+    /* text-align: center; */
+    margin: auto;
   }
   
   .list div[class^="item"] {
