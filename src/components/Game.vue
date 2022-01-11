@@ -1,7 +1,12 @@
 <template>
     <div class="container">
-      <div class="topconatiner">
+      <div v-if="walletConnected" class="topconatiner">
         Wallet connected: x04f..24df
+      </div>
+      <div v-else class="topconatiner">
+        <div>
+        <a href="#" id="btn" v-on:click="connectWallet">Connect wallet</a>
+      </div>
       </div>
         <div class="mobile">
             <div class="header">
@@ -18,11 +23,11 @@
             <div class="content">
                 <div class="total">
                     <div class="label">Ingame BUSD balance</div>
-                    <div class="value">10</div>
+                    <div class="value">0</div>
                 </div>
                 <div class="total">
                     <div class="label">Ingame DFNX balance</div>
-                    <div class="value">10</div>
+                    <div class="value">0</div>
                 </div>
                 <div>
                 <button class='btnplay'>Play</button>
@@ -32,7 +37,7 @@
                         <div class="section1">
                             <div class="text">
                                 <div class="title">DUNEFALL</div>
-                                <div class="description">All rights reserved</div>
+                                <div class="description">All rights reserved 2022</div>
                             </div>
                         </div>
                     </div>                    
@@ -50,11 +55,10 @@ import contractAbi from './games/cont.json';
 import { GET_GAME_STATUS, START_GAME } from '../store/game';
 
 import {
-  GET_IS_WALLET_CONNECTED,
-} from '../store/login';
-
-import {
   GET_ACCOUNT_ADDRESS,
+  GET_IS_WALLET_CONNECTED,
+  SET_IS_WALLET_CONNECTED,
+  SET_ACCOUNT_ADDRESS
 } from '../store/wallet';
 
 export default {
@@ -64,6 +68,7 @@ export default {
   data: () => ({
   }),
   mounted() {
+    this.connectWallet()
   },
   watch: {
   },
@@ -71,7 +76,9 @@ export default {
     ...mapGetters({
       status: GET_GAME_STATUS,
       walletAddress: GET_ACCOUNT_ADDRESS,
-      isConnected: GET_IS_WALLET_CONNECTED,
+      walletConnected: GET_IS_WALLET_CONNECTED,
+      setConnected: SET_IS_WALLET_CONNECTED,
+      setWalletAddress: SET_ACCOUNT_ADDRESS
     })
   },
   methods: {
@@ -94,6 +101,14 @@ export default {
             from: this.walletAddress});
           console.log(result);
         }
+    },
+
+    async connectWallet() {
+      if (typeof window.ethereum !== 'undefined') {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        this.setConnected(true);
+        this.setWalletAddress(accounts[0]);
+      }
     },
 
     async withdraw(value, token) {
@@ -143,7 +158,6 @@ export default {
   }
   
   .container {
-    margin: 50px;
     height: 100%;
   }
   
@@ -428,7 +442,7 @@ export default {
   text-align: center;
   width: 130px;
   border-radius:40px;
-  border: 2px solid green;
+  border: 2px solid rgb(71, 105, 71);
   letter-spacing:1px;
   text-shadow:0;
   cursor: pointer;
@@ -436,6 +450,11 @@ export default {
   margin-bottom: 10px;
   margin-top: 25px;
   }
+.btndeposit:hover {
+background-color:#3e4074;  }
+
+.btnwithdraw:hover {
+background-color:#3e4074; }
 
   .btnwithdraw {
   background-color: #21223f;
@@ -445,12 +464,11 @@ export default {
   text-align: center;
   width: 130px;
   border-radius:40px;
-  border: 2px solid red;
+  border: 2px solid rgb(122, 85, 85);
   letter-spacing:1px;
   text-shadow:0;
   cursor: pointer;
   transition: all 0.25s ease;
-  /* margin-bottom: 25px; */
   }
 
   .btnplay {
@@ -471,9 +489,65 @@ export default {
   margin-bottom: 70px;
   }
 
+
 .topconatiner {
   color: black;
   font: 20px;
   margin-top: 30px;
 }
+
+
+	#btn{
+		border: 2px solid black;
+		padding: 10px 20px;
+		color: white;
+		cursor: pointer;
+		position: relative;
+		overflow: hidden;
+		font-size: 24px;
+		font-family: sans-serif;
+		transition: all .5s;
+    text-decoration: none;
+    border-radius: 15px;
+		}
+
+	#btn:before{
+			width: 100%;
+			height: 100%;
+			content: '';
+			margin: auto;
+			position: absolute;
+			top:  0%;
+			left: 0%;
+			background: #212121;
+			transition: all .5s;
+			z-index: -1;
+      border-radius: 15px;
+			
+		}
+	#btn:after{
+			width: 100%;
+			content: '';
+			margin: auto;
+			position: absolute;
+			top:  0%;
+			left: 0%;
+			background: #212121;
+			transition: all .5s;
+			z-index: -1;
+      border-radius: 15px;
+			
+	}
+	#btn:hover{
+		color: #212121;
+	}
+	#btn:hover:before{			
+			transform: rotateX(90deg);
+
+	}
+	#btn:hover:after{
+			transform: rotateY(90deg);
+
+	}
+
 </style>
