@@ -12,7 +12,10 @@ export default {
   name: 'App',
   components: {
     Base,
-  }
+  },
+  created(){
+        document.title = "Dunefall"
+    }
 }
 </script>
 
