@@ -12,11 +12,11 @@
             <div class="header">
                <div class='btnmenu'>
                  <button class="btndeposit" v-on:click="deposit('BUSD')">Deposit BUSD</button>
-                 <button class="btnwithdraw">Withdraw BUSD</button>
+                 <button class="btnwithdraw change"><span>Withdraw BUSD</span></button>
                </div>
                <div class='btnmenu'>
-                 <button class="btndeposit">Deposit DFNX</button>
-                 <button class="btnwithdraw">Withdraw DFNX</button>
+                 <button class="btndeposit change"><span>Deposit BUSD</span></button>
+                 <button class="btnwithdraw change"><span>Withdraw BUSD</span></button>
                </div>
                     
             </div>
@@ -30,14 +30,13 @@
                     <div class="value">0</div>
                 </div>
                 <div>
-                <button class='btnplay'>Play</button>
+                <button class='btnplay change'><span>Play</span></button>
                 </div>
                 <div class="list">
                     <div class="item1">
                         <div class="section1">
                             <div class="text">
                                 <div class="title">DUNEFALL</div>
-                                <div class="description">All rights reserved 2022</div>
                             </div>
                         </div>
                     </div>                    
@@ -176,23 +175,23 @@ export default {
   }
   
   .header {
-    background: #21223f;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
+    background: #21223f;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-top: 25px;
     padding-bottom: 25px;
+    justify-content: space-between;
+    align-items: center;
   }
   
   .filter {
     display: flex;
-    padding: 0.5rem;
     min-width: 80px;
     justify-content: space-between;
-    align-items: center;
+    padding: 0.5rem;
     border: 1px solid #828393;
+    align-items: center;
     border-radius: 10px;
   }
   
@@ -204,17 +203,17 @@ export default {
   
   .content {
     background: #21223f;
-    border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
     display: grid;
+    border-bottom-left-radius: 1rem;
   }
   
   .total {
     align-self: start;
     justify-self: center;
+    flex-direction: column;
     padding: 1rem;
     display: flex;
-    flex-direction: column;
     align-items: center;
   }
   
@@ -235,18 +234,18 @@ export default {
   
   .total .balance {
     background: #1f3a4a;
+    color: #02ca8c;
     padding: 0.5rem 1rem;
     border-radius: 5px;
-    color: #02ca8c;
   }
   
   .cards {
     display: grid;
     overflow-x: auto;
     overflow-y: hidden;
+    align-self: start;
     grid-template-columns: repeat(auto-fill, minmax(auto, 0));
     grid-gap: 10px;
-    align-self: start;
   }
   
   .card {
@@ -456,6 +455,17 @@ background-color:#3e4074;  }
 .btnwithdraw:hover {
 background-color:#3e4074; }
 
+.btnplay:hover {
+background-color:#3e4074; }
+
+.change:hover span {
+  display: none
+}
+
+.change:hover:before {
+  content: "Coming soon!"
+}
+
   .btnwithdraw {
   background-color: #21223f;
   color: white;
@@ -464,7 +474,7 @@ background-color:#3e4074; }
   text-align: center;
   width: 130px;
   border-radius:40px;
-  border: 2px solid rgb(122, 85, 85);
+  border: 2px solid rgb(133, 76, 76);
   letter-spacing:1px;
   text-shadow:0;
   cursor: pointer;
@@ -479,7 +489,7 @@ background-color:#3e4074; }
   text-align: center;
   width: 130px;
   border-radius:40px;
-  border: 2px solid green;
+  border: 2px solid rgb(71, 105, 71);
   letter-spacing:1px;
   text-shadow:0;
   cursor: pointer;

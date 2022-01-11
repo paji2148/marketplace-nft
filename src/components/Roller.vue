@@ -47,7 +47,7 @@ export default {
   width: 58px;
   height: 58px;
   border-radius: 50%;
-  background: #ff4926;
+  background: #343977;
   position: absolute;
   top: 50%;
   left: 50%;
