@@ -1,10 +1,10 @@
 <template>
     <div class="container">
-      <div v-if="walletConnected" class="topconatiner">
-        Wallet connected: x04f..24df
+      <div v-if="walletConnected" class="topconatiner" style="font-size: 22px">
+        Wallet : {{walletAddress.substring(0, 3)}}...{{walletAddress.substr(walletAddress.length - 3)}}
       </div>
       <div v-else class="topconatiner">
-        <a href="#" id="connectWalletbtn" v-on:click="connectWallet">Connect wallet</a>
+        <a id="connectWalletbtn" v-on:click="connectWallet">Connect wallet</a>
       </div>
       <div class="wallet-flex">
         <div style="flex-grow: 1;">
@@ -82,8 +82,6 @@ export default {
       status: GET_GAME_STATUS,
       walletAddress: GET_ACCOUNT_ADDRESS,
       walletConnected: GET_IS_WALLET_CONNECTED,
-      setConnected: SET_IS_WALLET_CONNECTED,
-      setWalletAddress: SET_ACCOUNT_ADDRESS
     })
   },
   methods: {
@@ -91,6 +89,8 @@ export default {
       startGameApi: START_GAME,
     }),
     ...mapMutations({
+      setConnected: SET_IS_WALLET_CONNECTED,
+      setWalletAddress: SET_ACCOUNT_ADDRESS
     }),
 
     async deposit(value, token) {
@@ -114,6 +114,7 @@ export default {
         this.setConnected(true);
         this.setWalletAddress(accounts[0]);
       }
+      // wallet don't exists
     },
 
     async withdraw(value, token) {
