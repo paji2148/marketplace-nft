@@ -4,33 +4,34 @@
         Wallet connected: x04f..24df
       </div>
       <div v-else class="topconatiner">
-        <div>
-        <a href="#" id="btn" v-on:click="connectWallet">Connect wallet</a>
+        <a href="#" id="connectWalletbtn" v-on:click="connectWallet">Connect wallet</a>
       </div>
-      </div>
+      <div class="wallet-flex">
+        <div style="flex-grow: 1;">
         <div class="mobile">
             <div class="header">
                <div class='btnmenu'>
-                 <button class="btndeposit" v-on:click="deposit('BUSD')">Deposit BUSD</button>
-                 <button class="btnwithdraw change"><span>Withdraw BUSD</span></button>
+                 <button class="btndeposit change" v-on:click="deposit('BUSD')"><span>Deposit DFNX</span></button>
                </div>
                <div class='btnmenu'>
-                 <button class="btndeposit change"><span>Deposit BUSD</span></button>
-                 <button class="btnwithdraw change"><span>Withdraw BUSD</span></button>
+                 <button class="btnwithdraw change"><span>Withdraw DFNX</span></button>
                </div>
                     
             </div>
             <div class="content">
                 <div class="total">
-                    <div class="label">Ingame BUSD balance</div>
+                    <div class="label">Ingame Reward balance</div>
                     <div class="value">0</div>
                 </div>
                 <div class="total">
                     <div class="label">Ingame DFNX balance</div>
                     <div class="value">0</div>
                 </div>
+                <div style="padding-top: 23px">
+                <button class='btnaction change'><span>Mint NFT</span></button>
+                </div>
                 <div>
-                <button class='btnplay change'><span>Play</span></button>
+                <button class='btnaction change'><span>Play</span></button>
                 </div>
                 <div class="list">
                     <div class="item1">
@@ -43,11 +44,15 @@
                 </div>
             </div>
         </div>
+        </div>
+            <NFT />
+        </div>
     </div>
 </template>
 <script>
 
 import Web3 from 'web3';
+import NFT from './NFT.vue';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 import contractAbi from './games/cont.json';
 
@@ -63,6 +68,7 @@ import {
 export default {
   name: 'Game',
   components: {
+    NFT
   },
   data: () => ({
   }),
@@ -168,6 +174,7 @@ export default {
     grid-template-rows: 10% auto;
     color: #fff;
     margin: auto;
+    height: auto;
   }
   
   .mobile > div {
@@ -421,34 +428,12 @@ export default {
     color: #ff0000;
   }
   
-  .playbutton {
-    background-color: #bbb;
-    display: block;
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 25%;
-}
+
 #lastgame {
   margin-top: 20px;
   height: 40px;
 }
 
-.btndeposit {
-  background-color: #21223f;
-  color: white;
-  outline:none;
-  height: 40px;
-  text-align: center;
-  width: 130px;
-  border-radius:40px;
-  border: 2px solid rgb(71, 105, 71);
-  letter-spacing:1px;
-  text-shadow:0;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  margin-bottom: 10px;
-  margin-top: 25px;
-  }
 .btndeposit:hover {
 background-color:#3e4074;  }
 
@@ -480,8 +465,21 @@ background-color:#3e4074; }
   cursor: pointer;
   transition: all 0.25s ease;
   }
-
-  .btnplay {
+.btndeposit {
+  background-color: #21223f;
+  color: white;
+  outline:none;
+  height: 40px;
+  text-align: center;
+  width: 130px;
+  border-radius:40px;
+  border: 2px solid rgb(71, 105, 71);
+  letter-spacing:1px;
+  text-shadow:0;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  }
+  .btnaction {
   background-color: #21223f;
   color: white;
   outline:none;
@@ -495,8 +493,6 @@ background-color:#3e4074; }
   cursor: pointer;
   transition: all 0.25s ease;
   margin-bottom: 20px;
-  margin-top: 30px;
-  margin-bottom: 70px;
   }
 
 
@@ -507,26 +503,26 @@ background-color:#3e4074; }
 }
 
 
-	#btn{
+	#connectWalletbtn{
 		border: 2px solid black;
-		padding: 10px 20px;
-		color: white;
+		padding: 4px 8px;
+		color: rgb(8, 8, 8);
 		cursor: pointer;
 		position: relative;
 		overflow: hidden;
-		font-size: 24px;
+		font-size: 20px;
 		font-family: sans-serif;
 		transition: all .5s;
     text-decoration: none;
     border-radius: 15px;
 		}
 
-	#btn:before{
+	#connectWalletbtn:before{
 			width: 100%;
 			height: 100%;
 			content: '';
 			margin: auto;
-			position: absolute;
+			/* position: absolute; */
 			top:  0%;
 			left: 0%;
 			background: #212121;
@@ -535,11 +531,11 @@ background-color:#3e4074; }
       border-radius: 15px;
 			
 		}
-	#btn:after{
+	#connectWalletbtn:after{
 			width: 100%;
 			content: '';
 			margin: auto;
-			position: absolute;
+			/* position: absolute; */
 			top:  0%;
 			left: 0%;
 			background: #212121;
@@ -548,16 +544,22 @@ background-color:#3e4074; }
       border-radius: 15px;
 			
 	}
-	#btn:hover{
-		color: #212121;
+	#connectWalletbtn:hover{
+		color: #f0e5e5;
 	}
-	#btn:hover:before{			
+	#connectWalletbtn:hover:before{			
 			transform: rotateX(90deg);
 
 	}
-	#btn:hover:after{
+	#connectWalletbtn:hover:after{
 			transform: rotateY(90deg);
 
 	}
 
+.wallet-flex{
+ display:flex; justify-content: center;align-items: center;
+ flex-wrap: wrap;
+ margin: 5%;
+ margin-top: 50px;
+}
 </style>

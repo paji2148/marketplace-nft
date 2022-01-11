@@ -5,12 +5,14 @@
     </div>
     <div v-else>
       <Game />
+      <!-- <NFT /> -->
     </div>
   </div>
 </template>
 <script>
 
 import Game from './Game.vue';
+// import NFT from './NFT.vue';
 import Roller from './Roller.vue';
 
 export default {
@@ -20,7 +22,8 @@ export default {
   }),
   components: {
     Game,
-    Roller
+    Roller,
+    // NFT
   },
   watch: {},
   mounted() {
